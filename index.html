@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>K-Todo</title>
+  </head>
+  <style>
+    
+  </style>
+  <body class="bg-gray-100 flex justify-between items-center">
+    <!-- Modal -->
+    <div
+      class="modal-overlay hidden w-full h-full overflow-hidden absolute left-0 top-0 z-10 bg-black/40 backdrop-blur-[2px]"
+    >
+      <div
+        class="modal lg:w-[35%] md:w-[50%] w-[85%] mx-auto bg-white border border-gray-200 p-6 mt-10 rounded-lg"
+      >
+        <!-- Modal Header -->
+        <div
+          class="flex justify-between items-center w-full border-b border-gray-200 pb-6"
+        >
+          <h1 class="font-bold text-2xl">Add Todo</h1>
+          <!-- Close Button -->
+          <button class="close-button">
+            <img src="/assets/close-icon-2.png" alt="Close" />
+          </button>
+        </div>
+        <!-- Modal Body -->
+        <form id="todoForm" class="input-groups mt-5 space-y-4">
+          <!-- Input Group: Title -->
+          <div class="input-group w-full space-y-2">
+            <label for="todo-title" class="text-sm">Title</label>
+            <input
+              type="text"
+              name="todo-title"
+              id="todo-title"
+              class="w-full border border-gray-200 p-2 rounded"
+              required
+            />
+          </div>
+          <!-- Input Group: Description -->
+          <div class="input-group w-full space-y-2">
+            <label for="todo-description" class="text-sm">Description</label>
+            <input
+              type="text"
+              name="todo-description"
+              id="todo-description"
+              class="w-full border border-gray-200 p-2 rounded"
+            />
+          </div>
+          <!-- Input Group: Date -->
+          <div class="input-group w-full space-y-2">
+            <label for="todo-date" class="text-sm">Date</label>
+            <input
+              type="date"
+              name="todo-date"
+              id="todo-date"
+              class="w-full border border-gray-200 p-2 rounded"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="ml-auto bg-blue-500 flex items-center gap-3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            <img src="/assets/add-todo-icon.png" alt="Add" />
+            Add Todo
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- Modal Ends -->
+
+    <main
+      class="w-full md:w-[70%] lg:w-1/2 mx-auto bg-white border border-gray-200 p-6 md:mt-10 min-h-[90vh] rounded-lg"
+    >
+      <header class="flex justify-between border-b border-gray-200 pb-6">
+        <h1 class="text-3xl font-bold flex gap-2 items-center">
+          <img src="/assets/todo-logo.png" alt="Todo Logo" />
+          K-Todo
+        </h1>
+        <button
+          id="addTodoButton"
+          class="bg-blue-500 flex items-center gap-3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          <img src="/assets/add-todo-icon.png" alt="Add" />
+          Add Todo
+        </button>
+      </header>
+
+      <!-- Main Todo Content -->
+      <section>
+        <!-- Filter and Sorting Section -->
+        <div
+          class="flex flex-col gap-3 md:items-center md:flex-row md:justify-between mt-5"
+        >
+          <!-- Filter -->
+          <!-- Filter and Sorting Section -->
+          <div
+            class="flex flex-col gap-3 md:items-center md:flex-row md:justify-between mt-5"
+          >
+            <!-- Filter -->
+            <div class="filters flex items-center gap-3 overflow-x-auto">
+              <button
+                id="allFilter"
+                class="filter-button rounded-full border-gray-200 px-5 py-2 hover:bg-gray-200 border border-gray-200"
+              >
+                All
+              </button>
+              <button
+                id="completedFilter"
+                class="filter-button rounded-full border-gray-200 px-5 py-2 hover:bg-gray-200 border border-gray-200"
+              >
+                Completed
+              </button>
+              <button
+                id="pendingFilter"
+                class="filter-button rounded-full border-gray-200 px-5 py-2 hover:bg-gray-200 border border-gray-200"
+              >
+                Pending
+              </button>
+            </div>
+          </div>
+
+          <!-- Sort -->
+          <div>
+            <select name="sort" id="sort" class="border p-2 rounded-md w-full">
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- List of Todos -->
+        <div id="todoList" class="space-y-3 mt-5">
+          <!-- Todo template will be rendered here -->
+        </div>
+      </section>
+    </main>
+
+    <!-- javascript link  -->
+    <script src="index.js"></script>
+  </body>
+</html>
