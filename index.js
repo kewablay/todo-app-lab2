@@ -1,12 +1,25 @@
-let todos = []; // Initialize the todos array
-let currentFilter = "all"; // Variable to track current filter
-let currentSortOrder = "asc"; // Variable to track current sort order
+let todos = [];
+let currentFilter = "all"; //  track current filter
+let currentSortOrder = "asc"; //  track current sort order
 
-function openModal() {
+function openModal(modalType) {
   document.querySelector(".modal-overlay").classList.remove("hidden");
+
+  if (modalType === "addTodo") {
+    document.querySelector(".add-todo-modal").classList.remove("hidden");
+    document.querySelector(".update-todo-modal").classList.add("hidden");
+  } else {
+    document.querySelector(".add-todo-modal").classList.add("hidden");
+    document.querySelector(".update-todo-modal").classList.remove("hidden");
+  }
 }
 
-function closeModal() {
+function closeModal(modalType) {
+  if (modalType === "updateTodo") {
+    document.querySelector(".update-todo-modal").classList.add("hidden");
+  } else {
+    document.querySelector(".add-todo-modal").classList.add("hidden");
+  }
   document.querySelector(".modal-overlay").classList.add("hidden");
 }
 
@@ -54,6 +67,7 @@ function renderTodoList() {
       : b.dueDate - a.dueDate;
   });
 
+  // Create the todo items
   filteredTodos.forEach((todo) => {
     const todoItem = document.createElement("div");
     todoItem.className =
@@ -90,25 +104,28 @@ function renderTodoList() {
       "px-4 text-sm py-1.5 rounded-full bg-[#C5F5E166] border border-gray-100 flex items-center gap-2";
     updateButton.innerHTML =
       '<img src="assets/update-icon.png" alt="Update" /> Update';
+
+    // if update todo button clicked
     updateButton.addEventListener("click", () => {
       // Show the modal with current values
-      document.getElementById("todo-title").value = todo.title;
-      document.getElementById("todo-description").value = todo.description;
-      document.getElementById("todo-date").value = todo.dueDate
+      document.getElementById("update-todo-title").value = todo.title;
+      document.getElementById("update-todo-description").value =
+        todo.description;
+      document.getElementById("update-todo-date").value = todo.dueDate
         .toISOString()
         .substring(0, 10); // Date input expects YYYY-MM-DD format
       openModal();
 
       // Update the to-do item on form submission
-      document.getElementById("todoForm").onsubmit = (event) => {
+      document.getElementById("updateTodoForm").onsubmit = (event) => {
         event.preventDefault();
         updateTodoItem(
           todo.id,
-          document.getElementById("todo-title").value,
-          document.getElementById("todo-description").value,
-          document.getElementById("todo-date").value
+          document.getElementById("update-todo-title").value,
+          document.getElementById("update-todo-description").value,
+          document.getElementById("update-todo-date").value
         );
-        closeModal();
+        closeModal("updateTodo");
       };
     });
 
@@ -176,11 +193,16 @@ function initializeEventListeners() {
     .getElementById("pendingFilter")
     .addEventListener("click", () => filterTodoList("pending"));
 
-  document.getElementById("addTodoButton").addEventListener("click", openModal);
+  document
+    .getElementById("addTodoButton")
+    .addEventListener("click", () => openModal("addTodo"));
 
   document
     .querySelector(".modal-overlay .close-button")
-    .addEventListener("click", closeModal);
+    .addEventListener("click", () => closeModal("addTodo"));
+  document
+    .querySelector(".modal-overlay .update-close-button")
+    .addEventListener("click", () => closeModal("updateTodo"));
 
   document.getElementById("todoForm").addEventListener("submit", (event) => {
     event.preventDefault();

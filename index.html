@@ -6,16 +6,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>K-Todo</title>
   </head>
-  <style>
-    
-  </style>
+  <style></style>
   <body class="bg-gray-100 flex justify-between items-center">
     <!-- Modal -->
     <div
       class="modal-overlay hidden w-full h-full overflow-hidden absolute left-0 top-0 z-10 bg-black/40 backdrop-blur-[2px]"
     >
+      <!-- Add todo Modal -->
       <div
-        class="modal lg:w-[35%] md:w-[50%] w-[85%] mx-auto bg-white border border-gray-200 p-6 mt-10 rounded-lg"
+        class="add-todo-modal hidden lg:w-[35%] md:w-[50%] w-[85%] mx-auto bg-white border border-gray-200 p-6 mt-10 rounded-lg"
       >
         <!-- Modal Header -->
         <div
@@ -43,12 +42,13 @@
           <!-- Input Group: Description -->
           <div class="input-group w-full space-y-2">
             <label for="todo-description" class="text-sm">Description</label>
-            <input
-              type="text"
+
+            <textarea
               name="todo-description"
               id="todo-description"
+              rows="4"
               class="w-full border border-gray-200 p-2 rounded"
-            />
+            ></textarea>
           </div>
           <!-- Input Group: Date -->
           <div class="input-group w-full space-y-2">
@@ -70,6 +70,70 @@
           </button>
         </form>
       </div>
+      <!-- Add todo Modal Ends-->
+
+      <!-- Update Todo Modal -->
+      <div
+        class="update-todo-modal hidden lg:w-[35%] md:w-[50%] w-[85%] mx-auto bg-white border border-gray-200 p-6 mt-10 rounded-lg"
+      >
+        <!-- Modal Header -->
+        <div
+          class="flex justify-between items-center w-full border-b border-gray-200 pb-6"
+        >
+          <h1 class="font-bold text-2xl">Update Todo</h1>
+          <!-- Close Button -->
+          <button class="update-close-button">
+            <img src="/assets/close-icon-2.png" alt="Close" />
+          </button>
+        </div>
+        <!-- Modal Body -->
+        <form id="updateTodoForm" class="input-groups mt-5 space-y-4">
+          <!-- Input Group: Title -->
+          <div class="input-group w-full space-y-2">
+            <label for="update-todo-title" class="text-sm">Title</label>
+            <input
+              type="text"
+              name="update-todo-title"
+              id="update-todo-title"
+              class="w-full border border-gray-200 p-2 rounded"
+              required
+            />
+          </div>
+          <!-- Input Group: Description -->
+          <div class="input-group w-full space-y-2">
+            <label for="update-todo-description" class="text-sm"
+              >Description</label
+            >
+
+            <textarea
+              name="update-todo-description"
+              id="update-todo-description"
+              rows="4"
+              class="w-full border border-gray-200 p-2 rounded"
+            ></textarea>
+          </div>
+          <!-- Input Group: Date -->
+          <div class="input-group w-full space-y-2">
+            <label for="update-todo-date" class="text-sm">Date</label>
+            <input
+              type="date"
+              name="update-todo-date"
+              id="update-todo-date"
+              class="w-full border border-gray-200 p-2 rounded"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            id="update-submit-button"
+            class="ml-auto bg-blue-500 flex items-center gap-3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            <img src="/assets/add-todo-icon.png" alt="Add" />
+            Update Todo
+          </button>
+        </form>
+      </div>
+      <!-- Update todo Modal Ends-->
     </div>
     <!-- Modal Ends -->
 
