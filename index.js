@@ -8,6 +8,11 @@ function openModal(modalType) {
   if (modalType === "addTodo") {
     document.querySelector(".add-todo-modal").classList.remove("hidden");
     document.querySelector(".update-todo-modal").classList.add("hidden");
+
+    // Clear the input fields in the add-todo-modal
+    document.getElementById("todo-title").value = "";
+    document.getElementById("todo-description").value = "";
+    document.getElementById("todo-date").value = "";
   } else {
     document.querySelector(".add-todo-modal").classList.add("hidden");
     document.querySelector(".update-todo-modal").classList.remove("hidden");
@@ -51,6 +56,24 @@ function updateTodoItem(id, title, description, dueDate) {
 function renderTodoList() {
   const todoList = document.getElementById("todoList");
   todoList.innerHTML = "";
+
+  
+  if (todos.length === 0) {
+    todoList.innerHTML = `<div class='w-full mt-10'>
+            <div class='w-full pt-5 flex flex-col justify-center'>
+              <img
+                src='/assets/todo-hero.png'
+                class='w-1/2 md:w-1/3 mx-auto'
+                alt='empty-todo'
+              />
+            </div>
+            <div class='text-center space-y-2'>
+              <h2 class='font-bold text-xl'>No Todos yet</h2>
+              <p class='w-[80%] mx-auto'>Get started by clicking add todo</p>
+            </div>
+          </div>`;
+    return;
+  }
 
   let filteredTodos = todos;
 
@@ -211,6 +234,7 @@ function initializeEventListeners() {
     const dueDate = document.getElementById("todo-date").value;
     addTodoItem(title, description, dueDate);
     closeModal();
+
   });
 
   document.getElementById("sort").addEventListener("change", (event) => {
